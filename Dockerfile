@@ -11,5 +11,11 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&   \
     apt install -y /tmp/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
     rm -f  /tmp/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb
 
+ADD eng.traineddata chi_sim.traineddata /usr/share/tesseract-ocr/5/tessdata/
+RUN /bin/sh -c echo "deb https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list &&  \
+    apt-get update -y -oAcquire::AllowInsecureRepositories=true &&   \
+    apt-get  install -y notesalexp-keyring -oAcquire::AllowInsecureRepositories=true  --allow-unauthenticated &&  \
+    apt-get update -y && apt-get  install -y tesseract-ocr 
+
 ENV LANG=zh_CN.UTF-8 LANGUAGE=zh_CN.UTF-8  JAVA_HOME=/usr/local/jdk1.8.0_351  CLASSPATH=/usr/local/jdk1.8.0_351/lib/  PATH=/usr/local/jdk1.8.0_351/bin:$PATH
 
