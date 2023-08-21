@@ -12,7 +12,7 @@ ADD eng.traineddata chi_sim.traineddata /usr/share/tesseract-ocr/5/tessdata/
 RUN /bin/sh -c echo "deb https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list &&  \
     apt-get update -y -oAcquire::AllowInsecureRepositories=true &&   \
     apt-get  install -y notesalexp-keyring -oAcquire::AllowInsecureRepositories=true  --allow-unauthenticated &&  \
-    apt-get update && apt-get  install -y tesseract-ocr 
+    apt-get update -y && apt-get  install -y tesseract-ocr 
 
 
 ENV LANG=zh_CN.UTF-8 LANGUAGE=zh_CN.UTF-8  JAVA_HOME=/usr/local/jdk1.8.0_351  CLASSPATH=/usr/local/jdk1.8.0_351/lib/  PATH=/usr/local/jdk1.8.0_351/bin:$PATH
