@@ -9,10 +9,9 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&   \
     sed -ie 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen && locale-gen  &&  fc-cache -fv
 
 ADD eng.traineddata chi_sim.traineddata /usr/share/tesseract-ocr/5/tessdata/
-RUN /bin/sh -c echo "deb https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list &&  \
+RUN echo "deb https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list &&  \
     apt-get update -y -oAcquire::AllowInsecureRepositories=true &&   \
     apt-get  install -y notesalexp-keyring -oAcquire::AllowInsecureRepositories=true  --allow-unauthenticated &&  \
     apt-get update -y && apt-get  install -y tesseract-ocr 
-
 
 ENV LANG=zh_CN.UTF-8 LANGUAGE=zh_CN.UTF-8  JAVA_HOME=/usr/local/jdk1.8.0_351  CLASSPATH=/usr/local/jdk1.8.0_351/lib/  PATH=/usr/local/jdk1.8.0_351/bin:$PATH
