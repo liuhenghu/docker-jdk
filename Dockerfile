@@ -8,7 +8,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&   \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone &&  \
     sed -ie 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen && locale-gen  &&  fc-cache -fv
 
-ADD eng.traineddata chi_sim.traineddata /usr/share/tesseract-ocr/5/tessdata/
+ADD eng.traineddata chi_sim.traineddata osd.traineddata /usr/share/tesseract-ocr/5/tessdata/
 RUN echo "deb https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list &&  \
     apt-get update -y -oAcquire::AllowInsecureRepositories=true &&   \
     apt-get  install -y notesalexp-keyring -oAcquire::AllowInsecureRepositories=true  --allow-unauthenticated &&  \
