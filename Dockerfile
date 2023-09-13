@@ -11,7 +11,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&   \
     apt install -y /tmp/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
     rm -f  /tmp/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb
 
-ADD eng.traineddata chi_sim.traineddata /usr/share/tesseract-ocr/5/tessdata/
+ADD eng.traineddata chi_sim.traineddata osd.traineddata /usr/share/tesseract-ocr/5/tessdata/
 RUN echo "deb https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list &&  \
     apt-get update -y -oAcquire::AllowInsecureRepositories=true &&   \
     apt-get  install -y notesalexp-keyring -oAcquire::AllowInsecureRepositories=true  --allow-unauthenticated &&  \
