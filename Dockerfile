@@ -1,11 +1,17 @@
-FROM debian:11
+FROM 1005663978/jdk11:debian11
 
-ADD jdk-11.0.18_linux-x64_bin.tar.gz /usr/local/
-ADD fonts  /usr/share/fonts/chinese
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&   \
-    sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list && \
-    apt-get update -y  && apt-get upgrade -y && apt install -y vim curl net-tools telnet inetutils-ping procps less wget locales fontconfig &&  \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone &&  \
-    sed -ie 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen && locale-gen  &&  fc-cache -fv
+RUN apt update && apt install ca-certificates curl gnupg  --no-install-recommends -y && mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key |  gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    rm -rf /var/lib/apt/lists/*;
 
-ENV LANG=zh_CN.UTF-8 LANGUAGE=zh_CN.UTF-8  JAVA_HOME=/usr/local/jdk-11.0.18  CLASSPATH=/usr/local/jdk-11.0.18/lib/  PATH=/usr/local/jdk-11.0.18/bin:$PATH
+ENV NODE_MAJOR 20
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | \
+    tee /etc/apt/sources.list.d/nodesource.list && \
+    apt-get update && \
+    apt-get install -y nodejs --no-install-recommends && \
+    npm install -g topojson-server && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN  apt update && apt install -y libczmq-dev --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+ADD geos.tar.gz  /
