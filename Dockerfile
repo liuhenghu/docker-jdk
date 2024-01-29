@@ -1,6 +1,6 @@
 FROM 1005663978/jdk11:debian11 AS builder
 
-RUN apt install -y gcc g++ sqlite3 ant swig libgeos-dev libproj-dev cmake && \
+RUN apt install -y gcc g++ sqlite3 ant swig libgeos-dev libproj-dev cmake make && \
     wget https://mirror.ghproxy.com/https://github.com/OSGeo/gdal/releases/download/v3.6.4/gdal-3.6.4.tar.gz && \
     tar -xzf gdal-3.6.4.tar.gz && cd gdal-3.6.4 && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/gdal  && \
     make && make install 
